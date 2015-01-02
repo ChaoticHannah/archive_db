@@ -3,13 +3,13 @@ require 'base64'
 
 module DataTransfer
   def select_data_from_db(limits)
-    from = limits[:from].present? ? (limits[:from].to_i - 1) : 0
-    to = limits[:to].present? ? (limits[:to].to_i - 1) : 20
+    limit = limits[:limit].present? ? (limits[:limit].to_i) : 10
+    offset = limits[:offset].present? ? (limits[:offset].to_i) : 0
     account_id = limits[:account_id]
 
     records = account_id.present? ? where(AccountId: account_id) : all
 
-    info_array = records.to_a[from..to]
+    info_array = records.offset(offset).limit(limit)
 
     csv_string = CSV.generate(headers: true) do |csv|
       csv << attribute_names
