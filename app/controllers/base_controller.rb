@@ -14,6 +14,6 @@ class BaseController < ApplicationController
   private
 
   def select_params
-    params.permit(:from, :to)
+    params.permit(:from, :to, :account_id)
   end
 end

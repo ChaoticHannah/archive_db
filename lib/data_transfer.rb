@@ -5,8 +5,11 @@ module DataTransfer
   def select_data_from_db(limits)
     from = limits[:from].present? ? (limits[:from].to_i - 1) : 0
     to = limits[:to].present? ? (limits[:to].to_i - 1) : 20
+    account_id = limits[:account_id]
 
-    info_array = all.to_a[from..to]
+    records = account_id.present? ? where(AccountId: account_id) : all
+
+    info_array = records.to_a[from..to]
 
     csv_string = CSV.generate(headers: true) do |csv|
       csv << attribute_names
