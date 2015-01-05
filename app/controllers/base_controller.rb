@@ -1,14 +1,15 @@
 class BaseController < ApplicationController
   before_filter :check_security
+  before_filter :detect_class
 
   def save
-    success = Info.save_procedure(params[:data])
+    success = @class_name.save_procedure(params[:data])
     head 200 and return if success
     head 511
   end
 
   def select
-    result = Info.select_procedure(select_params)
+    result = @class_name.select_procedure(select_params)
     head 404 and return unless result.present?
     render text: result
   end
@@ -24,13 +25,8 @@ class BaseController < ApplicationController
                                safe_key?
   end
 
-  def safe_key?
-    begin
-      cipher = Gibberish::AES.new(CONFIG["aes_key"])
-      true
-      #CONFIG["#{params[:action]}_key"] == cipher.dec(params[:key])
-    rescue OpenSSL::Cipher::CipherError
-      false
-    end
+  def detect_class
+    head 404 and return unless table_name = params[:table_name]
+    @class_name = Object.const_get(table_name.capitalize)
   end
 end

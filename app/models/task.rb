@@ -1,4 +1,4 @@
-class Info < ActiveRecord::Base
+class Task < ActiveRecord::Base
   self.primary_key = 'Id'
 
   extend DataTransfer
@@ -12,4 +12,9 @@ class Info < ActiveRecord::Base
     return unless any?
     select_data_from_db(data)
   end
+
+  def self.aes256_cbc_encrypt
+    cipher = Gibberish::AES.new(CONFIG["aes_key"])
+    cipher.enc('=rJ!59vdkt!hfqUBi;|Y')
+  end 
 end
