@@ -1,4 +1,6 @@
 class Info < ActiveRecord::Base
+  self.primary_key = 'Id'
+
   extend DataTransfer
 
   def self.save_procedure(encoded_data)

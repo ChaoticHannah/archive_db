@@ -2,9 +2,11 @@ require 'csv'
 require 'base64'
 
 module DataTransfer
+  ATTRIBUTES_TO_SELECT = %w(Id Description AccountId WhatId ActivityDate OwnerId LastModifiedDate)
+
   def select_data_from_db(limits)
-    limit = limits[:limit].present? ? (limits[:limit].to_i) : 10
-    offset = limits[:offset].present? ? (limits[:offset].to_i) : 0
+    limit = (limits[:limit].presence || 10).to_i
+    offset = limits[:offset].presence.to_i
     account_id = limits[:account_id]
 
     records = account_id.present? ? where(AccountId: account_id) : all
@@ -12,9 +14,12 @@ module DataTransfer
     info_array = records.offset(offset).limit(limit)
 
     csv_string = CSV.generate(headers: true) do |csv|
-      csv << attribute_names
+      csv << ATTRIBUTES_TO_SELECT
+
       info_array.each do |info|
-        csv << info.attributes.values
+        csv << info.attributes
+                    .slice(*ATTRIBUTES_TO_SELECT)
+                    .values
       end
     end
     Base64.encode64(csv_string)

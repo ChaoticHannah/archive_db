@@ -1,0 +1,13 @@
+default: &default
+  aes_key: 9tOBVO30JvE8U0uFdvXti/fh3MIb3iQyftkTduOYNUo=
+  select_key: '&YRf9y2L3tm;mBvi@bH4'
+  save_key: '=rJ!59vdkt!hfqUBi;|Y'
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
