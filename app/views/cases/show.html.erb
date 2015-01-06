@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <% if current_user %>
+          <%= nav_bar :fixed => :top, brand: 'Case number: ' + @case.CaseNumber, :responsive => true %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+<table class="table table-bordered">
+  <th>Date Opened</th>
+  <th>Date Closed</th>
+  <th>Subject</th>
+  <th>Priority</th>
+  <th>Description</th>
+  <th>Status</th>
+  <th>Origin</th>
+  <tr>
+    <td><%= @case.Date_Opened__c %></td>
+    <td><%= @case.Date_Closed__c %></td>
+    <td><%= @case.Subject %></td>
+    <td><%= @case.Priority %></td>
+    <td><%= @case.Description %></td>
+    <td><%= @case.Status %></td>
+    <td><%= @case.Origin %></td>
+  </tr>
+</table>
+</div>

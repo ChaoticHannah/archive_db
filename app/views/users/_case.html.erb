@@ -1,0 +1,19 @@
+<h2><%= case_type %>&nbsp;Cases</h2>
+<table class="table table-bordered">
+	<th>Case</th>
+	<th>Contact Name</th>
+	<th>Subject</th>
+	<th>Priority</th>
+	<th>Date Opened</th>
+	<th>Status</th>
+	<% @cases[case_type.downcase].each do |c| %>
+			<tr>
+			<td><%= link_to c.CaseNumber, show_case_path(c.CaseNumber) %></td>
+			<td><%= c.ContactId %></td>
+			<td><%= c.Subject %></td>
+			<td><%= c.Priority %></td>
+			<td><%= c.Date_Opened__c %></td>
+			<td><%= c.Status %></td>
+		</tr>
+	<% end %>
+</table>

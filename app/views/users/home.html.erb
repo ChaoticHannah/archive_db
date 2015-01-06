@@ -1,0 +1,20 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <% if current_user %>
+          <li><%= link_to current_user.dealer_code, '#'%></li>
+          <li><%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <% ['Techline', 'Warranty', 'Consumer Affairs'].each do |case_type| %>
+    <div class="col-md-4"><%= render "case", :case_type => case_type %></div>
+  <% end %>
+</div>
+
+
