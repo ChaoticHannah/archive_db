@@ -29,10 +29,10 @@ module DataTransfer
     decoded_data = Base64.decode64(encoded_data)
     csv = CSV.parse(decoded_data)
     headers = csv.shift
-    csv.to_a.map! { |row| Hash[headers.zip(row)].symbolize_keys }
-    
+    csv.to_a.map! { |row| Hash[headers.zip(row)] }
+
     csv.each do |data_chunk|
-      create(data_chunk)
+      create(data_chunk.slice(*attribute_names).symbolize_keys)
     end
   end
 end
