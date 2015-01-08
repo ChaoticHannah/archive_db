@@ -5,6 +5,7 @@ module DataTransfer
   ATTRIBUTES_TO_SELECT = %w(Id Description AccountId WhatId ActivityDate OwnerId LastModifiedDate)
 
   def select_data_from_db(limits)
+    return unless any?
     limit = (limits[:limit].presence || 10).to_i
     offset = limits[:offset].presence.to_i
     account_id = limits[:account_id]
@@ -26,6 +27,7 @@ module DataTransfer
   end
 
   def save_data_to_db(encoded_data)
+    return unless encoded_data
     decoded_data = Base64.decode64(encoded_data)
     csv = CSV.parse(decoded_data)
     headers = csv.shift

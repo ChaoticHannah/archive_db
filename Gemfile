@@ -19,3 +19,9 @@ gem 'aescrypt'
 
 # authentication
 gem 'devise'
+
+# tests
+group :test do
+  gem 'minitest'
+  gem 'minitest-rails', '~> 2.1.0'
+end

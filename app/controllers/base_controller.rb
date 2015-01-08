@@ -3,13 +3,13 @@ class BaseController < ApplicationController
   before_filter :detect_class
 
   def save
-    success = @class_name.save_procedure(params[:data])
+    success = @class_name.save_data_to_db(params[:data])
     head 200 and return if success
     head 511
   end
 
   def select
-    result = @class_name.select_procedure(select_params)
+    result = @class_name.select_data_from_db(select_params)
     head 404 and return unless result.present?
     render text: result
   end

@@ -1,18 +1,35 @@
 require 'test_helper'
 
-class BaseControllerTest < ActionController::TestCase
+describe BaseController do
+  before do
+    fill_db
+  end
+
   describe "#select" do
     let(:invalid_key) { 'blablabla' }
-    let(:valid_key) { CONFIG['select_key'] }
+    let(:valid_key) { Base64.encode64(CONFIG['select_key']) }
 
-    it 'forbids acccess if key is invalid' do
-      get :select, key: invalid_key
-      assert_response :forbidden
+    let(:request_params) do
+      {
+        key: key,
+        table_name: 'Case'
+      }
     end
 
-    it 'allows access if key is valid' do
-      get :select, key: valid_key
-      assert_response :ok
+    before do
+      get :select, request_params
+    end
+
+    describe 'when key is invalid' do
+      let(:key) { invalid_key }
+
+      it { assert_response :forbidden }
+    end
+
+    describe 'when key is valid' do
+      let(:key) { valid_key }
+
+      it { assert_response :ok }
     end
   end
 end
