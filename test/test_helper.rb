@@ -1,3 +1,15 @@
+# Name: TestCase
+# Copyright © notice: Nissan Motor Company.
+# ======================================================
+# Purpose
+# Class that contains helper methods for tests and shared
+# examples
+# ======================================================
+# History
+#
+# VERSION AUTHOR DATE DETAIL
+# 1.0 Halitskaya Victoria 01/08/2015 Created
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -7,17 +19,20 @@ require 'csv'
 require 'base64'
 
 class ActiveSupport::TestCase
+  # fills test database with test data
   def fill_db
     data = File.open('./test/support/test_data_for_case.txt', 'rb') { |io| io.read }
     Case.save_data_to_db(data) unless Case.any?
   end
 
+  # parses csv and returns array of objects
   def parse_csv(csv)
     objects = CSV.parse(csv)
     headers = objects.shift
     objects.to_a.map! { |row| Hash[headers.zip(row)] }
   end
 
+  # converts given objects to csv format
   def convert_to_csv(obj_array)
     CSV.generate(headers: true) do |csv|
       csv << obj_array.first.keys
@@ -28,10 +43,12 @@ class ActiveSupport::TestCase
     end
   end
 
+  # parses encoded text
   def parse_base64(encoded_data)
     Base64.decode64(encoded_data)
   end
 
+  # encodes given data to base64 format
   def convert_to_base64(csv)
     Base64.encode64(csv)
   end

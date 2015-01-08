@@ -1,9 +1,24 @@
+# Name: DataTransfer
+# Copyright © notice: Nissan Motor Company.
+# ======================================================
+# Purpose
+# Helper module to insert and select data from database
+# ======================================================
+# History
+#
+# VERSION AUTHOR DATE DETAIL
+# 1.0 Halitskaya Victoria 12/26/2013 Created
+
 require 'csv'
 require 'base64'
 
 module DataTransfer
   ATTRIBUTES_TO_SELECT = %w(Id Description AccountId WhatId ActivityDate OwnerId LastModifiedDate)
 
+  # Returns encoded in base64 list of records from database
+  # represented in csv format.
+  # Assepts parameters hash which can contain following keys:
+  # offset, limit, account_id
   def select_data_from_db(limits)
     return unless any?
     limit = (limits[:limit].presence || 10).to_i
@@ -26,6 +41,8 @@ module DataTransfer
     Base64.encode64(csv_string)
   end
 
+  # Receives encoded in base64 list of records represented in csv format and
+  # saves then to database
   def save_data_to_db(encoded_data)
     return unless encoded_data
     decoded_data = Base64.decode64(encoded_data)

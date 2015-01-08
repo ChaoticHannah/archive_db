@@ -1,3 +1,14 @@
+# Name: User
+# Copyright © notice: Nissan Motor Company.
+# ======================================================
+# Purpose
+# Class to process data from database User table
+# ======================================================
+# History
+#
+# VERSION AUTHOR DATE DETAIL
+# 1.0 Halitskaya Victoria 01/06/2015 Created
+
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :trackable, :rememberable,
