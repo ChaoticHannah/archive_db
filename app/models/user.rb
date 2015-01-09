@@ -11,12 +11,13 @@
 
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
-         :trackable, :rememberable,
+         :rememberable,
          :authentication_keys => [:dealer_code]
 
   validates :dealer_code, presence: true
 
   has_many :cases, primary_key: :account_id, foreign_key: :AccountId
+  has_many :comments, through: :cases
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

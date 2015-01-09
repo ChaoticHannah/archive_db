@@ -25,3 +25,6 @@ group :test do
   gem 'minitest'
   gem 'minitest-rails', '~> 2.1.0'
 end
+
+# pagination
+gem 'will_paginate', '~> 3.0.6'

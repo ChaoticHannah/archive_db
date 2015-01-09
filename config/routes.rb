@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   post '/save', to: 'base#save'
   get '/select', to: 'base#select'
   get '/case/:CaseNumber', to: 'cases#show', as: :show_case
+  resources :cases do
+    resources :comments
+  end
 end

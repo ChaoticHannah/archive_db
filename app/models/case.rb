@@ -15,6 +15,7 @@ class Case < ActiveRecord::Base
   self.primary_key = 'Id'
 
   belongs_to :user, primary_key: :AccountId, foreign_key: :account_id
+  has_many :comments, primary_key: :Id, foreign_key: :case_id
 
   # returns hash with Case objects filtered by RecordTypeID
   def self.type_hash

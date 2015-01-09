@@ -21,7 +21,6 @@
     </div>
   </div>
 </nav>
-
 <form class="form-horizontal">
   <div class="form-group">
     <label class="col-sm-2 control-label">Date Opened</label>
@@ -44,3 +43,9 @@
     </div>
   <% end %>
 </form>
+<div class='container'>
+  <%= link_to '<- Back to cases', root_path %>
+  <%= render 'new_comment' %>
+  <hr>
+  <%= render 'comments' %>
+</div>

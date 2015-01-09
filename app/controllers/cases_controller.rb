@@ -17,5 +17,7 @@ class CasesController < ApplicationController
   # to display in html page
   def show
     @case = Case.find_by(CaseNumber: params['CaseNumber'])
+    @comments = @case.comments.paginate(page: params[:page])
+    @comment = Comment.new(case_id: @case.Id)
   end
 end

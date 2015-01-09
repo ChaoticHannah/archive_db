@@ -1,0 +1,10 @@
+<div id='new_comment'>
+  <h2>Leave a comment</h2>
+  <%= form_for [@case, @comment] do |f| %>
+    <div class="form-group">
+      <label for="comment">Comment:</label>
+      <%= f.text_area :message, { class: 'form-control', row: '5', id: 'comment', required: true} %>
+    </div>
+    <%= f.submit 'Post comment', class: 'btn btn-default' %>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<%= will_paginate @comments %>
+<div id='case_comments' class='form-group'>
+  <% @comments.each do |comment| %>
+    <div class='well'>
+      <%= comment.message %>
+      <p>
+        <small>
+          Posted on:&nbsp;<%= comment.created_at.strftime('%m/%d/%Y, %H:%M') %>
+          by&nbsp;<b><%= comment.user.dealer_code %></b>
+        </small>
+      </p>
+    </div>
+  <% end %>
+</div>
+<%= will_paginate @comments %>
